@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:ldap="http://www.springframework.org/schema/ldap"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/ldap
+http://www.springframework.org/schema/ldap/spring-ldap-2.0.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-2.5.xsd ">
+
+    <context:component-scan base-package="com.imousan">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <bean class="org.imousan.easyspring.support.resource.PropertiesProvider">
+        <property name="locations">
+            <list>
+                <value>classpath:system.properties</value>
+                <value>classpath:security.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.imousan.easyspring.support.AppCtxUtils" id="appCtxUtil"/>
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+</beans>

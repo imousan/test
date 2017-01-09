@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!-- Appenders -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p: %c - %m%n" />
+        </layout>
+    </appender>
+   <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="40000KB" />
+        <param name="maxBackupIndex" value="5" />
+        <param name="File" value="${test.root}WEB-INF/logs/app.log" />
+        <param name="Append" value="true"/> 
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="[%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p] [%t] %c %M - %m%n" />
+        </layout>
+    </appender>
+
+    <logger name="com.imousan">
+        <level value="${log4j.level.app}" />
+    </logger>
+
+    <!-- 3rdparty Loggers -->
+    <logger name="org.imousan">
+        <level value="debug"/>
+    </logger>
+
+    <logger name="org.hibernate.SQL">
+        <level value="${log4j.level.hibernate.sql}"/>
+    </logger>
+
+    <logger name="org.hibernate.type">
+        <level value="${log4j.level.hibernate.type}"/>
+    </logger>
+    
+    <logger name="com.mchange.v2">
+        <level value="warn"/>
+    </logger>
+
+    <logger name="org.springframework.web">
+        <level value="debug"/>
+    </logger>
+
+    <logger name="org.apache.shiro">
+        <level value="warn"/>
+    </logger>
+
+    <logger name="com.zaxxer.hikari">
+        <level value="warn"/>
+    </logger>
+
+    <!-- Root Logger -->
+    <root>
+        <priority value="${log4j.level.default}" />
+        <appender-ref ref="${log4j.appender}" />
+    </root>
+
+</log4j:configuration>
